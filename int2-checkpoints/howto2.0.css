@@ -1,0 +1,49 @@
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border:solid;
+    border-width:5px;
+    background-color:grey;
+    border-color:black;
+}
+
+
+a {
+    display: block;
+    padding: 0px;
+    background-color: rgb(150, 150, 150);
+    color: rgb(100, 100, 100);
+}
+
+.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+
+#navbar a {
+    border: 2px solid black;
+    padding:10px;
+    background-color: gray;
+    color:white;
+}
+#navbar a:hover {
+    background-color:gray;
+}
+#navbar li {
+    display: inline-block;
+}
+.navbar {
+    text-align:center;
+}
+
+h1 {
+    color: rgb(240, 240, 240);
+    padding:5px;
+}
+
+p {
+    color: white;
+    padding:15px;
+}

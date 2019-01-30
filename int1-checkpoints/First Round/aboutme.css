@@ -1,0 +1,111 @@
+#navbar li {
+    /*display: inline;*/
+    float: left;
+    font-family: "San-serif";
+}
+
+a {
+    display: block;
+    padding: 0px;
+    background-color: rgb(150, 150, 150);
+    color: rgb(100, 100, 100);
+}
+
+.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+
+#navbar li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 12px 133px;
+    text-decoration: none;
+    font-family: sans-serif;
+}
+
+#navbar li a:hover {
+    background-color: white;
+    color: black;
+    font-family: sans-serif;
+}
+
+#navbar li:last-child {
+    border-right: none;
+}
+
+
+h1 {
+    padding-top: 70px;
+    color: rgb(240, 240, 240);
+}
+
+p {
+    color: white;
+    padding-left: 15px;
+    padding-top: 0px;
+    padding-bottom:100px;
+}
+
+h2 {
+    color: white;
+    padding-left: 15px;
+}
+
+
+#img1 {
+    position: relative;
+    left: 50px;
+    top: 0px;
+    border: solid;
+    border-color: white;
+
+}
+
+#img2 {
+    position: relative;
+    left: 780px;
+    bottom:400px;
+    padding-bottom: 0px;
+    border: solid;
+    border-color: white;
+}
+
+#img3 {
+    position: relative;
+    left: 150px;
+    top: 0px;
+    border: solid;
+    border-color: white;
+}
+
+#img4 {
+    position: relative;
+    left: 50px;
+    top: 0px;
+    border: solid;
+    border-color: white;
+}
+
+ol {
+    color: white;
+    font-size: larger;
+    padding-bottom: 0px;
+
+
+}
+
+.row-container {
+    border: solid;
+    border-color: white;
+}
