@@ -16,6 +16,8 @@ var display = document.getElementById("display");
 
 var display2 = document.getElementById("display2");
 
+//These codes below allow the images to display text when the mouse is hovering over them
+
 assassin.addEventListener("mouseover", function() {
     display.innerHTML = "Assassins are responsible for doing a lot of damage in a short period of time. However, most assassins have very low health and die easily, but they also do the most damage in the game. They are very mobile and can escape/chase others easily. This means that their job is to dive the back liners (mages and marksmen) and kill them before they can do any damage."
 })
