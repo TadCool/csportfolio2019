@@ -6,6 +6,7 @@ ul.menu li {
     padding-top: 500px;
 }
 
+/*seperates the images*/
 img {
     padding-left: 40px;
     padding-right: 10px;
@@ -16,12 +17,9 @@ img {
 
 a {
     color: rgb(250, 250, 200);
-    padding-right: 30px;
-    padding-top: 30px;
-    padding-bottom: 30px;
 }
 
-/*changes background color*/
+/*changes background color and font as well as making the text center*/
 
 body {
     background-color: rgb(0, 50, 50);
