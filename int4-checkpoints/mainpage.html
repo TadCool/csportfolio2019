@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Pollen Page</title>
+    <link rel="stylesheet" href="bot.css" type="text/css" />
+</head>
+
+<body background="images/background4.jpg">
+    <h1>Creating Your Own Bot</h1>
+    <h3>
+    <strong>
+        My name is Nicholas Rusali, and in this coding class the teacher gave each student a link to a website that a former student created. This website was linked to a C9 project. In this C9 project you can create a bot which competes with 3 other players. Each Bot is color coded with
+        a legend on the right indicating which bot is what color. In C9 you can code the bot to do basic tasks, such as gather pollen from flowers and return back to base. But you can also make it do more complicated tasks such as steal from other bots
+        or steal from their bases. When a bee with pollen returns to their base, the base converts it into base honey. The player with the most base honey wins at the end of the game. On the top right of the sreen there is a counter with 0/1000 at the
+        start of the game. Each time a bee moves, it increases by 1 and which every bee has the most honey when the counter hits 1000, they win.
+    </strong>
+    </h3>
+    <img src="images/hive1.jpg" height="400px">
+    <h3 width="400px">
+        <strong>
+        In the code there are three different sections, each sections is essential for the bot's gameplay. The first section in the code tells the bot data on the map they are in. This is important for the bot because it tells the code where it's located on the
+        map and where the other players are as well as your and their bases. It also tells the bot the location of the flowers on the map and where each barrier is located. This helps prevent the bot from either running into barriers, or missing flowers.
+        It also can be used to go towards other bases/players or to avoid them. This information is very important for the bot.
+        </h3>
+        <img src="images/botcode1.jpg" height="400px">
+        <h3> The second part of the code tells the bot when to do something. What I mean by this is the code uses variables for certain situations, for example if there is a bot that has 50 or more pollen than you, then the code will trigger the variable
+        "chase" which interacts with the next section of the code which tells the bot how to do something.
+        </h3>
+        <img src="images/botcode2.jpg" height="200px">
+        <h3> The third section of the code is a little complicated. This part of the code tells the bee how to do something. For example, if there were a bee that has 50 or more pollen then you, then it would trigger a command to chase it. This works
+        with the "myDir" tag which tells the bot what direction to go in.
+        </h3>
+        <img src="images/botcode3.jpg" height="600px">
+        <h3> Here is what my entire code looks like:
+        <pre><code>
+        var bot = require("./bot"); //Don't change this
+bot.hostURL = 'http://shastaai19-matthesby1.c9users.io'; //Put the server url/IP adress here!
+bot.key = "l59fa45iif"; //Set your bot key to this string!
+/***************************************************/
+//Write your code in this function!!!
+bot.direction = function(game) {
+
+    /* ~~ Determines information about the Game ~~ */
+    var enemyBots = [];
+    var enemyBases = [];
+    var myDir = "none";
+
+    var dirs = ["north", "east", "south", "west"];
+
+    //tells the code the data on where the enemy bases are on enemy bots
+    for (let i = 0; i < game.players.length; i++) { //Adds all other bots to the enemyBots array.
+        if (game.players[i].id != game.myBot.id) {
+            enemyBases.push(game.bases[i]); //Adds all other bases to the enemyBases array
+            enemyBots.push(game.players[i]);
+        }
+    }
+
+    //tells the code the data of which enemy has the most pollen
+    var enemyMostPollen = enemyBots[0];
+    for (var i = 0; i < enemyBots.length; i++) {
+        if (enemyBots[i].pollen > enemyMostPollen.pollen) {
+            enemyMostPollen = enemyBots[i]
+        }
+    }
+
+    //variables that change information from the data to variables that helps the code decide what to do
+    var stepsToBase = bot.findDistance(game.myBot.pos, game.myBase.pos)
+    var turnsLeft = bot.totalTurns - game.turn;
+
+
+
+    /* ~~This code decides what to do ~~ */
+    var task = "bases"
+    var task = "flower"
+    
+    if (stepsToBase * game.players.length == turnsLeft) {
+        task = "myBase"
+    }
+    else if (game.myBot.pollen >= 200) {
+        task = "myBase"
+    }
+    else if (50 + game.myBot.pollen <= enemyMostPollen.pollen) {
+        task = "chase most";
+    }
+
+
+    /* ~~This code decides how to do it ~~ */
+
+    //this allows the bee to go to the base with the most pollen and taking the pollen then bringing it back to my base
+    else if (task === "bases") {
+        var mostBase = game.enemyBases[0]
+        for (var i = 0; i < game.enemyBases.length; i++) {
+            if (mostBase.pollen < game.enemyBases[i].pollen) {
+                mostBase = game.enemyBases[i]
+            }
+        }
+        myDir = bot.nextStep(game.myBot.pos, mostBase.pos)
+        console.log("Target Base with Most Pollen")
+    }
+
+    //This code tells the bot to go for the flower with the most pollen
+    else if (task === "flower") {
+        var mostFlower = game.flowers[0]
+        for (var i = 0; i < game.flowers.length; i++) {
+            if (mostFlower.pollen < game.flowers[i].pollen) {
+                mostFlower = game.flowers[i]
+            }
+        }
+        myDir = bot.nextStep(game.myBot.pos, mostFlower.pos)
+        console.log("Get the Flower with Most Pollen!")
+    }
+
+    //if the task "mybase" is true, then the bee is told to go back to the base
+    else if (task == "myBase") {
+        myDir = bot.nextStep(game.myBot.pos, game.myBase.pos)
+        console.log("Go Back to Base!")
+    }
+
+    //if the task "chase most" is true, then the bee is told to chase the enemy with the most pollen
+    else if (task === "chase most") {
+        myDir = bot.nextStep(game.myBot.pos, enemyMostPollen.pos);
+        console.log("Chase Bee with Most Pollen!")
+    }
+
+    return myDir;
+} //DO NOT CHANGE ANYTHING BELOW THIS LINE
+bot();
+
+    </code></pre>
+    </strong>
+    </h3>
+    <h1>Choices and Regrets</h1>
+    <h3>
+    <strong>  
+    Some choices I had to make during this interval of coding was what and where to put the different codes. 
+    The position of the tags in the code will greatly affect how your bot moves. Depending on where your commands are 
+    in your code, the priority of the code will also change. That means if the command for "take pollen from flowers" 
+    is first on the list of the code, then the bot's first objective will be to get pollen from flowers. If there are 
+    multiple commands that tell the bot what to do, it will only do the first command that is true and will not do the 
+    other commands unless the previous command is false. I had to choose which order I should put the commands. At first 
+    I experimented where I should put the commands in order to get my bee running smooth. Once I figured this out 
+    I had to come up with values for my commands, such as "After my bee gets 200 pollen, then return to base". After 
+    choosing what values I want for my commands, I needed to add a fourth task to my code. Now there were a lot of choices 
+    for this, but in the end I decided to create a code that steals from people's bases. At first the code worked but 
+    when I tried to make it better (add more commands that make the bee more efficient), I messed up my code and it stopped 
+    working. Eventually, after trying to fix it for two days, I ended up just going back to my revision history and revising 
+    it. After finally revising it, I got it to work again. Now I understand more about how I can code AI. 
+    </h3>
+    <h3>
+    Before this project I thought that AI's were really complicated and required a lot of time, but after this project I 
+    realized that for creating an AI, you just need to create a "flow chart" that tells the bot what to do in certain situations. 
+    While not difficult, it does take a lot of time to code all this information into the bot and if you get a line wrong, then 
+    the bot will stop working. But in the end, I sucessfully made it work. 
+    </h3>
+    <h3>
+    If I had more time, I could try and add more if statements that allow my bot to continue stealing pollen from bases, instead 
+    of just stopping when my base has the most pollen. 
+    </strong>
+    </h3>
+    <h2>Link to the <a href="http://shastaai19-matthesby1.c9users.io/">Game Site</a>  if you want to Watch</h2>
+</body>
+
+</html>

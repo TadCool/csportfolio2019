@@ -1,0 +1,29 @@
+body{
+    background-color:rgb(180,180,180);
+    text-align: center;
+    
+}
+
+a{
+    color:white;
+    Background-color:rgb(130,130,130);
+    font-style:oblique;
+}
+
+h1 {
+    color:white;
+    Background-color:rgb(130,130,130);
+    padding:5px;
+}
+
+h2 {
+    color:white;
+    Background-color:rgb(130,130,130);
+    padding:5px;
+}
+
+h3 {
+    Background-color:rgb(130,130,130);
+    color:white;
+    padding:15px;
+}
